@@ -59,7 +59,7 @@ create_vm() {
     read -p "Enter disk path: " vm_disk
     read -p "Enter OS variant (default: alpine3.21): " vm_os
     vm_os=${vm_os:-alpine3.21}
-    read -p "Enter network bridge (default: virbr0): " vm_net
+    read -p "Enter network bridge (public/NAT: virbr0, private: virbr1): " vm_net
     vm_net=${vm_net:-virbr0}
     read -p "Enter ISO path: " vm_iso
     vm_iso=${vm_iso:-/var/lib/libvirt/images/alpine-virt-3.21.0-x86_64.iso}
