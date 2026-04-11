@@ -1,25 +1,25 @@
 ---
 - name: Local setup tasks
-  hosts: localhost
+  hosts: host
   gather_facts: no
   tasks:
     - name: Run VM provisioning script
       command: bash ./vm_provsioning.sh
       register: vm_provisioning_result
 
-    - name: Generate SSH key pair if not present
-      openssh_keypair:
-        path: "{{ lookup('env','HOME') }}/.ssh/id_ansible"
-        type: rsa
-        size: 2048
-      register: ssh_key
+    # - name: Generate SSH key pair if not present
+    #   openssh_keypair:
+    #     path: "{{ lookup('env','HOME') }}/.ssh/id_ansible"
+    #     type: rsa
+    #     size: 2048
+    #   register: ssh_key
 
-    - name: Display public key
-      debug:
-        msg: "{{ ssh_key.public_key }}"
+    # - name: Display public key
+    #   debug:
+    #     msg: "{{ ssh_key.public_key }}"
 
 - name: Distribute SSH keys and run remote tasks
-  hosts: remotes
+  hosts: guest
   gather_facts: no
   tasks:
     - name: Copy public key to remote authorized_keys
