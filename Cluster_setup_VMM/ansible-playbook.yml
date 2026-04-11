@@ -4,7 +4,8 @@
   gather_facts: no
   tasks:
     - name: Run local shell script
-      command: bash /path/to/local_script.sh
+      command: bash ./vm_provsioning.sh
+      register: vm_provisioning_result
 
     - name: Generate SSH key pair if not present
       openssh_keypair:
