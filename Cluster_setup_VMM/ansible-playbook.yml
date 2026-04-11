@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Run local shell script
+    - name: Run VM provisioning script
       command: bash ./vm_provsioning.sh
       register: vm_provisioning_result
 
@@ -32,12 +32,12 @@
 
     - name: Copy shell script to remote
       copy:
-        src: /path/to/remote_script.sh
+        src: ./setup_nat_wrk.sh
         dest: /tmp/remote_script.sh
         mode: '0755'
 
     - name: Run shell script on remote
-      command: bash /tmp/remote_script.sh
+      command: bash ./setup_nat_wrk.sh
       register: remote_result
 
     - name: Show remote script output
