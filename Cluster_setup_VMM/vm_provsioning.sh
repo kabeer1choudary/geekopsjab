@@ -57,8 +57,8 @@ create_vm() {
     read -p "Enter number of vCPUs (default: 1): " vm_vcpus
     vm_vcpus=${vm_vcpus:-1}
     read -p "Enter disk path: " vm_disk
-    read -p "Enter OS variant (default: alpine3.21): " vm_os
-    vm_os=${vm_os:-alpine3.21}
+    read -p "Enter OS variant (default: alpinelinux3.21): " vm_os
+    vm_os=${vm_os:-alpinelinux3.21}
     read -p "Enter network bridge (public/NAT: virbr0, private: virbr1): " vm_net
     vm_net=${vm_net:-virbr0}
     read -p "Enter ISO path: " vm_iso
@@ -69,7 +69,7 @@ create_vm() {
         --description "$vm_name Workstation" \
         --ram "$vm_ram" \
         --vcpus "$vm_vcpus" \
-        --disk path="$vm_disk",size=20 \
+        --disk path="$vm_disk",size=4 \
         --os-variant "$vm_os" \
         --network bridge="$vm_net" \
         --graphics vnc,listen=127.0.0.1,port=5901 \
@@ -82,7 +82,7 @@ check_virtualization
 setup_libvirtd
 check_kvm
 check_resources
-#create_image
-#create_vm
+create_image
+create_vm
 
 echo "VM creation process completed!"
