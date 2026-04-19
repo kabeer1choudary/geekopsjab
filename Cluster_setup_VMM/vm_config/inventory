@@ -1,0 +1,9 @@
+[local]
+localhost ansible_connection=local
+
+[bastion]
+192.168.122.180 ansible_user=bstn_usr
+
+[worker]
+192.168.100.114 ansible_user=wrk_usr_1
+192.168.100.115 ansible_user=wrk_usr_2
