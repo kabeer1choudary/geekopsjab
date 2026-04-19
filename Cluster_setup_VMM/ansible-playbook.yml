@@ -18,8 +18,34 @@
       debug:
         msg: "{{ ssh_key.public_key }}"
 
-- name: Distribute SSH keys and run remote tasks
-  hosts: remote
+- name: Distribute SSH keys and run shell script on Bastion host
+  hosts: bastion
+  gather_facts: no
+  tasks:
+    - name: Copy public key to remote authorized_keys
+      authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ hostvars['localhost']['ssh_key'].public_key }}"
+
+    - name: Connectivity check (ping)
+      ping:
+
+    - name: Copy shell script to remote
+      copy:
+        src: ./setup_nat_bstn.sh
+        dest: /tmp/remote_script.sh
+        mode: '0755'
+
+    - name: Run shell script on remote
+      command: bash ./setup_nat_bstn.sh
+      register: remote_result
+
+    - name: Show remote script output
+      debug:
+        var: remote_result.stdout
+
+- name: Distribute SSH keys and run shell script on Worker hosts
+  hosts: worker
   gather_facts: no
   tasks:
     - name: Copy public key to remote authorized_keys
