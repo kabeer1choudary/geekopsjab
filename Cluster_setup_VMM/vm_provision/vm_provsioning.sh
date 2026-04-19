@@ -40,11 +40,12 @@ check_resources() {
 # Function to create VM image
 create_image() {
     echo "Creating VM disk image..."
-    read -p "Enter image path (default: /var/lib/libvirt/images/alpine321.qcow2): " img_path
-    img_path=${img_path:-/var/lib/libvirt/images/alpine321.qcow2}
+    read -p "Enter name for the disk image (default: /var/lib/libvirt/images/alpine321.qcow2): " img_name
+    img_name=${img_name:-alpine321.qcow2}
+    img_path="/var/lib/libvirt/images/$img_name.qcow2"
     read -p "Enter disk size in MB (default: 4096): " img_size
     img_size=${img_size:-4096}
-    sudo qemu-img create -f qcow2 "$img_path" "$img_size"
+    sudo qemu-img create -f qcow2 -o preallocation=full "$img_path" "$img_size"M
 }
 
 # Function to create VM
