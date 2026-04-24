@@ -51,6 +51,8 @@ create_image() {
 # Function to create VM
 create_vm() {
     echo "Configuring VM installation..."
+    read -p "Identify the VM type (Controller: CTL, Worker: WRK): " vm_type
+    vm_type=${vm_type:-WRK}
     read -p "Enter VM name (default: alpine321): " vm_name
     vm_name=${vm_name:-alpine321}
     read -p "Enter RAM size in MB (default: 1024): " vm_ram
@@ -60,22 +62,57 @@ create_vm() {
     read -p "Enter disk path: " vm_disk
     read -p "Enter OS variant (default: alpinelinux3.21): " vm_os
     vm_os=${vm_os:-alpinelinux3.21}
-    read -p "Enter network bridge (public/NAT: virbr0, private: virbr1): " vm_net
-    vm_net=${vm_net:-virbr0}
+    read -p "Enter first network bridge (public/NAT: virbr0, private: virbr1): " vm_net1
+    vm_net1=${vm_net1:-virbr0}
+    read -p "Enter second network bridge (public/NAT: virbr0, private: virbr1): " vm_net2
     read -p "Enter ISO path: " vm_iso
     vm_iso=${vm_iso:-/var/lib/libvirt/images/alpine-virt-3.21.0-x86_64.iso}
 
+    if [[ "$node_type" == "WRK" ]]; then
+    echo "Launching worker node with single network..."
     sudo virt-install \
-        --name "$vm_name" \
-        --description "$vm_name Workstation" \
+        --name "$vm_name"_WRK \
+        --description "$vm_name Worker Node" \
         --ram "$vm_ram" \
         --vcpus "$vm_vcpus" \
         --disk path="$vm_disk",size=4 \
         --os-variant "$vm_os" \
-        --network bridge="$vm_net" \
+        --network bridge="$vm_net1" \
         --graphics vnc,listen=127.0.0.1,port=5901 \
         --cdrom "$vm_iso" \
         --noautoconsole
+    elif [[ "$node_type" == "CTL" ]]; then
+        echo "Launching controller node with two networks..."
+        sudo virt-install \
+            --name "$vm_name" \
+            --description "$vm_name Controller Node" \
+            --ram "$vm_ram" \
+            --vcpus "$vm_vcpus" \
+            --disk path="$vm_disk",size=4 \
+            --os-variant "$vm_os" \
+            --network bridge="$vm_net1" \
+            --network bridge="$vm_net2" \
+            --graphics vnc,listen=127.0.0.1,port=5901 \
+            --cdrom "$vm_iso" \
+            --noautoconsole
+    else
+        echo "Unknown node type: $node_type"
+        echo "Usage: $0 [worker|controller]"
+        exit 1
+    fi
+
+    # sudo virt-install \
+    #     --name "$vm_name" \
+    #     --description "$vm_name Workstation" \
+    #     --ram "$vm_ram" \
+    #     --vcpus "$vm_vcpus" \
+    #     --disk path="$vm_disk",size=4 \
+    #     --os-variant "$vm_os" \
+    #     --network bridge="$vm_net1" \
+    #     --network bridge="$vm_net2" \
+    #     --graphics vnc,listen=127.0.0.1,port=5901 \
+    #     --cdrom "$vm_iso" \
+    #     --noautoconsole
 }
 
 # Main execution
