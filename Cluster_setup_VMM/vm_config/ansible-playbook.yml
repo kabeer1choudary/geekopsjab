@@ -3,10 +3,6 @@
   hosts: local
   gather_facts: no
   tasks:
-    - name: Run VM provisioning script
-      command: bash ./vm_provsioning.sh
-      register: vm_provisioning_result
-
     - name: Generate SSH key pair if not present
       openssh_keypair:
         path: "{{ lookup('env','HOME') }}/.ssh/id_ansible"

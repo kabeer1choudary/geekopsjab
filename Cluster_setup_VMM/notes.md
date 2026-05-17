@@ -8,8 +8,6 @@ Step1:
 
 Step2:
 
-
-
 #podman sample command to build container image with name ansible-ubuntu
 podman build -t ansible-ubuntu .
 
