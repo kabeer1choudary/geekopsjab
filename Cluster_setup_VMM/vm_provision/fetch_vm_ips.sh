@@ -34,4 +34,6 @@ inventory_file="inventory.ini"
     done
 } > "$inventory_file"
 
+
+
 echo "Inventory file created: $inventory_file"

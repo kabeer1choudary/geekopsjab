@@ -1,65 +1,37 @@
 ---
-- name: Local setup tasks
-  hosts: local
-  gather_facts: no
-  tasks:
-    - name: Generate SSH key pair if not present
-      openssh_keypair:
-        path: "{{ lookup('env','HOME') }}/.ssh/id_ansible"
-        type: rsa
-        size: 2048
-      register: ssh_key
 
-    - name: Display public key
-      debug:
-        msg: "{{ ssh_key.public_key }}"
-
-- name: Distribute SSH keys and run shell script on Bastion host
+- name: Distribute and run shell script on Bastion host
   hosts: bastion
   gather_facts: no
   tasks:
-    - name: Copy public key to remote authorized_keys
-      authorized_key:
-        user: "{{ ansible_user }}"
-        key: "{{ hostvars['localhost']['ssh_key'].public_key }}"
-
-    - name: Connectivity check (ping)
-      ping:
-
-    - name: Copy shell script to remote
+    - name: Copy shell script to remote bastion
       copy:
         src: ./setup_nat_bstn.sh
-        dest: /tmp/remote_script.sh
+        dest: /tmp/setup_nat_bstn.sh
         mode: '0755'
 
-    - name: Run shell script on remote
-      command: bash ./setup_nat_bstn.sh
+    - name: Run shell script on remote bastion
+      become: yes
+      become_user: root
+      command: bash /tmp/setup_nat_bstn.sh
       register: remote_result
 
     - name: Show remote script output
       debug:
         var: remote_result.stdout
 
-- name: Distribute SSH keys and run shell script on Worker hosts
+- name: Distribute and run shell script on Worker hosts
   hosts: worker
   gather_facts: no
   tasks:
-    - name: Copy public key to remote authorized_keys
-      authorized_key:
-        user: "{{ ansible_user }}"
-        key: "{{ hostvars['localhost']['ssh_key'].public_key }}"
-
-    - name: Connectivity check (ping)
-      ping:
-
-    - name: Copy shell script to remote
+    - name: Copy shell script to remote worker
       copy:
         src: ./setup_nat_wrk.sh
-        dest: /tmp/remote_script.sh
+        dest: /tmp/setup_nat_wrk.sh
         mode: '0755'
 
-    - name: Run shell script on remote
-      command: bash ./setup_nat_wrk.sh
+    - name: Run shell script on remote worker
+      command: bash /tmp/setup_nat_wrk.sh
       register: remote_result
 
     - name: Show remote script output

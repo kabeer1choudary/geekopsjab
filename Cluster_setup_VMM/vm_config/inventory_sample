@@ -1,9 +1,12 @@
-[local]
-localhost ansible_connection=local
-
 [bastion]
 192.168.122.180 ansible_user=bstn_usr
 
 [worker]
 192.168.100.114 ansible_user=wrk_usr_1
 192.168.100.115 ansible_user=wrk_usr_2
+
+[bastion:vars]
+ansible_ssh_common_args='-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+
+[worker:vars]
+ansible_ssh_common_args='-o ProxyJump={{ hostvars[groups["bastion"][0]]["ansible_user"] }}@{{ groups["bastion"][0] }} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'

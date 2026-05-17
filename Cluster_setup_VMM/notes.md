@@ -9,11 +9,11 @@
 # Step2:
 - Use the script **vm_config/run_tasks.sh** to build container image with name ansible-ubuntu2204 and imventroy file for Ansible Playbook
 
-- Compare and convert the inventory.ini file, based on the inventory_sample file. Where [virbr0] would be changed to [bastion] and [virbr1] would be changes to [worker]
+- Compare and convert the inventory.ini file, based on the inventory_sample file. Where [virbr0] group would be changed to [bastion] and [virbr1] would be changes to [worker].
 
 - Post running the script, use podman to spin up a container to run the ansible playbook
 
     _podman command to start ansible container and run playbook_
     ```
-    $ podman run --rm -it -v $PWD:/workspace:Z -v $PWD/.ssh:/root/.ssh:Z ansible-ubuntu2204 ansible-playbook -i inventory.ini ansible-playbook.yml
+    $ podman run --rm -it -v $PWD:/workspace:Z ansible-ubuntu2204 ansible-playbook -i inventory.ini ansible-playbook.yml -k -K -vv
     ```
