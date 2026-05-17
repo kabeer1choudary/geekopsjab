@@ -8,10 +8,10 @@ Step1:
 
 Step2:
 - Use podman, spin up a container to run the ansible playbook
-    # podman command to build container image with name ansible-ubuntu
+    ## podman command to build container image with name ansible-ubuntu
     $ podman build -t ansible-ubuntu .
 
-    # podman command to start ansible container and run playbook
+    ## podman command to start ansible container and run playbook
     $ podman run --rm -it \
       -v $PWD:/workspace:Z \
       -v $HOME/.ssh:/root/.ssh:Z \
