@@ -24,13 +24,13 @@ inventory_file="inventory.ini"
 {
     echo "[virbr0]"
     for ip in "${virbr0_ips[@]}"; do
-        echo "$ip ansible_user=youruser"
+        echo "$ip ansible_user=addyouruser"
     done
 
     echo ""
     echo "[virbr1]"
     for ip in "${virbr1_ips[@]}"; do
-        echo "$ip ansible_user=youruser"
+        echo "$ip ansible_user=addyouruser"
     done
 } > "$inventory_file"
 
