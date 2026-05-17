@@ -15,7 +15,4 @@
 
     _podman command to start ansible container and run playbook_
     
-    $ podman run --rm -it \
-      -v $PWD:/workspace:Z \
-      -v $HOME/.ssh:/root/.ssh:Z \
-      ansible-ubuntu ansible-playbook -i inventory playbook.yml
+    $ podman run --rm -it -v $PWD:/workspace:Z -v $HOME/.ssh:/root/.ssh:Z ansible-ubuntu ansible-playbook -i inventory playbook.yml
