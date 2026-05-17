@@ -10,9 +10,11 @@
 - Use podman, spin up a container to run the ansible playbook
 
     _podman command to build container image with name ansible-ubuntu_
+    
     $ podman build -t ansible-ubuntu .
 
     _podman command to start ansible container and run playbook_
+    
     $ podman run --rm -it \
       -v $PWD:/workspace:Z \
       -v $HOME/.ssh:/root/.ssh:Z \
