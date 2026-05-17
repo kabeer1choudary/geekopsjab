@@ -1,5 +1,5 @@
 # Step1:
-- Use the shell script vm_provision/vm_provisioning.sh to create 3 VMs with below configs with sudo
+- Use the shell script **vm_provision/vm_provisioning.sh** to create 3 VMs with below configs with sudo
   - 2 vCPU, 2048MB RAM, 15GB Disk, virbr0 Network (Bridge network), virbr1 Network (Isolated network)
   - 1 vCPU, 1024MB RAM, 12GB Disk, virbr1 Network (Isolated network)
   - 1 vCPU, 1024MB RAM, 12GB Disk virbr1 Network (Isolated network)
@@ -8,10 +8,10 @@
 
 # Step2:
 - Use podman, spin up a container to run the ansible playbook
-    ### podman command to build container image with name ansible-ubuntu
+    _podman command to build container image with name ansible-ubuntu_
     $ podman build -t ansible-ubuntu .
 
-    ### podman command to start ansible container and run playbook
+    _podman command to start ansible container and run playbook_
     $ podman run --rm -it \
       -v $PWD:/workspace:Z \
       -v $HOME/.ssh:/root/.ssh:Z \
