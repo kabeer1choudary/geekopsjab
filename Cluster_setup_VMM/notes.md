@@ -8,6 +8,7 @@
 
 # Step2:
 - Use podman, spin up a container to run the ansible playbook
+
     _podman command to build container image with name ansible-ubuntu_
     $ podman build -t ansible-ubuntu .
 
