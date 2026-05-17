@@ -9,10 +9,13 @@
 # Step2:
 - Use podman, spin up a container to run the ansible playbook
 
-    _podman command to build container image with name ansible-ubuntu_
-    
-    $ podman build -t ansible-ubuntu .
+    _podman command to build container image with name ansible-ubuntu22_
+    ```
+    $ podman build -t ansible-ubuntu22 .
+    ```
+    _or you can use the script **vm_config/run_tasks.sh** to build container image with name ansible-ubuntu22_
 
     _podman command to start ansible container and run playbook_
-    
+    ```
     $ podman run --rm -it -v $PWD:/workspace:Z -v $HOME/.ssh:/root/.ssh:Z ansible-ubuntu ansible-playbook -i inventory playbook.yml
+    ```
