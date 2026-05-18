@@ -14,11 +14,7 @@ trap 'error_exit "Unexpected error occurred at line $LINENO"' ERR
 
 echo -e "\nStarting tasks...\n"
 
-# 1. Create .ssh directory in current directory
-mkdir -p .ssh || error_exit "Failed to create .ssh directory"
-echo "Step 1: .ssh directory created"
-
-# 2. Run podman command to build an image
+# 1. Run podman command to build an image
 IMAGE_NAME="ansible-ubuntu2204"
 DOCKERFILE="Dockerfile"
 
@@ -30,7 +26,7 @@ else
     error_exit "Dockerfile not found in current directory"
 fi
 
-# 3. Run a shell script to fetch VM IPs and write to inventory file
+# 2. Run a shell script to fetch VM IPs and write to inventory file
 SCRIPT="../vm_provision/fetch_vm_ips.sh"
 if [[ -x "$SCRIPT" ]]; then
     echo "Step 3: Running shell script..."
@@ -40,5 +36,5 @@ else
     error_exit "Shell script $SCRIPT not found or not executable"
 fi
 
-# 4. Status message once all tasks finished
+# 3. Status message once all tasks finished
 echo -e "\n All tasks completed successfully!\n"
