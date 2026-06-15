@@ -5,7 +5,7 @@ from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
 from config import SCRIPTS_DIR, logger
 from security import verify_webhook_signature
 
-app = FastAPI(title="DevOps Webhook Runner", version="1.0.0")
+app = FastAPI(title="Webhook Runner", version="1.0.0")
 
 def execute_script(script_path: str):
     """Executes the script and logs output."""

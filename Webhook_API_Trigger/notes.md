@@ -22,21 +22,23 @@ pip install fastapi uvicorn python-dotenv
 ## Running and Testing Locally
 - Start the server
 ```
-uvicorn server:app --reload --port 8000
+export WEBHOOK_SECRET="secret-key"
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 - Simulate the webhook trigger
 ```
-curl -X POST "http://127.0.0.1:8000/webhook" \
-     -H "Content-Type: application/json" \
-     -d '{"event": "deploy", "repo": "my-project", "author": "dev_user"}'
+PAYLOAD="{}"
+SECRET="secret-key"
+SIGNATURE=$(echo -n "$PAYLOAD" | openssl dgst -sha256 -hmac "$SECRET" | awk '{print $2}')
 
-curl -X POST "http://127.0.0.1:8000/webhook" \
+curl -X POST "http://localhost:8000/trigger/deploy.sh" \
      -H "Content-Type: application/json" \
-     -d '{"event": "backup", "repo": "my-project", "author": "dev_user"}'
+     -H "X-Hub-Signature-256: sha256=$SIGNATURE" \
+     -d "$PAYLOAD"
 ```
 - Verify the result
 ```
-{"status":"accepted","message":"Script deploy_app.py triggered in background."}
+{"status": "accepted", "message": f"Script {sanitized_name} queued for execution."}
 ```
 
 ## Running in Background
@@ -47,7 +49,7 @@ sudo nano /etc/systemd/system/api_server.service
 - Add following configuration (ini)
 ```
 [Unit]
-Description=FastAPI Webhook Receiver Server
+Description=FastAPI Webhook Runner Server
 After=network.target
 
 [Service]

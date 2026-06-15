@@ -17,7 +17,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler("webhook_events.log")
+        logging.FileHandler("api_server.log")
     ]
 )
 logger = logging.getLogger("webhook_runner")
