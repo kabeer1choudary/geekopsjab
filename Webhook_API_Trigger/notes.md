@@ -6,8 +6,12 @@ When an external service fires a webhook, API server needs to:
 - Trigger the local script in the background so the external service gets a fast 200 OK response.
 
 ## Setting Up Environment
-
+- Create a virtual python environment
+``` python -m venv api_server ```
+- Source the virtual environment
+``` source api_server/bin/activate ```
 Install FastAPI and Uvicorn.
+``` pip install fastapi uvicorn ```
 
 ## Running and Testing Locally
 - Start the server
