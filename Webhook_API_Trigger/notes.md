@@ -8,3 +8,15 @@ When an external service fires a webhook, API server needs to:
 ## Setting Up Environment
 
 Install FastAPI and Uvicorn.
+
+## Running and Testing Locally
+- Start the server
+- Simulate the webhook trigger
+- Verify the result
+
+## Going to Production: Best Practices
+- Security (Authentication): Real webhooks should use HTTPS and sign their payloads using a secret key through header. Always verify this signature in your code before running any scripts to ensure a malicious user isn't triggering your scripts.
+
+- Exposing Localhost: To test actual external webhooks on your local machine, use a tool like ngrok (ngrok http 8000) to create a secure public URL that routes to your local FastAPI server.
+
+- Process Management: In production, do not run Uvicorn manually. Use a process manager like Gunicorn or PM2, or wrap your FastAPI app inside a Docker container.
