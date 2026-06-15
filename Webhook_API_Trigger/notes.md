@@ -16,7 +16,7 @@ source api_server/bin/activate
 ```
 - Install FastAPI and Uvicorn.
 ``` 
-pip install fastapi uvicorn 
+pip install fastapi uvicorn python-dotenv
 ```
 
 ## Running and Testing Locally
