@@ -7,10 +7,12 @@ When an external service fires a webhook, API server needs to:
 
 ## Setting Up Environment
 - Create a virtual python environment
-``` python -m venv api_server ```
+``` 
+python -m venv api_server 
+```
 - Source the virtual environment
 ``` source api_server/bin/activate ```
-Install FastAPI and Uvicorn.
+- Install FastAPI and Uvicorn.
 ``` pip install fastapi uvicorn ```
 
 ## Running and Testing Locally
