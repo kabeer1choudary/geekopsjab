@@ -27,9 +27,9 @@ Webhook_API_Trigger/
 ├── main.py            # FastAPI application and routing
 ├── security.py        # Webhook secret validation logic
 ├── scripts/           # Drop your executable scripts here
-│   ├── deploy-app.sh
-│   └── cleanup-logs.py
-└── requirements.txt
+    ├── deploy-app.sh
+    └── cleanup-logs.py
+
 
 ```
 
