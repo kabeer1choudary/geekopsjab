@@ -21,7 +21,7 @@ pip install fastapi uvicorn python-dotenv
 ## Project Structure
 
 ```
-Webhook_AIP_Triger/
+Webhook_API_Trigger/
 │
 ├── config.py          # Environment and security configuration
 ├── main.py            # FastAPI application and routing
