@@ -18,6 +18,20 @@ source api_server/bin/activate
 ``` 
 pip install fastapi uvicorn python-dotenv
 ```
+## Project Structure
+
+```
+Webhook_AIP_Triger/
+│
+├── config.py          # Environment and security configuration
+├── main.py            # FastAPI application and routing
+├── security.py        # Webhook secret validation logic
+├── scripts/           # Drop your executable scripts here
+│   ├── deploy-app.sh
+│   └── cleanup-logs.py
+└── requirements.txt
+
+```
 
 ## Running and Testing Locally
 - Start the server
