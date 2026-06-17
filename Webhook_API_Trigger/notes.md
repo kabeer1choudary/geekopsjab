@@ -69,7 +69,7 @@ After=network.target
 [Service]
 User=$USER
 WorkingDirectory=$HOME
-ExecStart=/path/to/your/venv/bin/uvicorn api_server:app --host 0.0.0.0 --port 8000
+ExecStart=/path/to/your/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 Restart=always
 
 [Install]
