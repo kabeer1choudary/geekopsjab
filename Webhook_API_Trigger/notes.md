@@ -89,6 +89,20 @@ sudo systemctl status api_server
 ```
 tail -f api_server.log
 ```
+
+## Docker Deployment
+
+```
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
 ## Going to Production: Best Practices
 - Security (Authentication): Real webhooks should use HTTPS and sign their payloads using a secret key through header. Always verify this signature in your code before running any scripts to ensure a malicious user is not triggering your scripts.
 
