@@ -28,7 +28,7 @@ Webhook_API_Trigger/
 ├── security.py        # Webhook secret validation logic
 ├── scripts/           # Drop your executable scripts here
     ├── deploy-app.sh
-    └── cleanup-logs.py
+    └── cleanup-logs.sh
 
 
 ```
